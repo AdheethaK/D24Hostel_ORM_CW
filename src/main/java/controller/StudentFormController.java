@@ -68,8 +68,21 @@ public class StudentFormController implements Initializable {
     }
 
     @FXML
-    void btnUpdateOnAction(ActionEvent event) { //🔃 add.png
-
+    void btnUpdateOnAction(ActionEvent event) { //🔃
+        if(update()){
+            new Alert(Alert.AlertType.CONFIRMATION,"Congratulations! Student successfully updated! :)").show();
+        }else{
+            new Alert(Alert.AlertType.ERROR,"oops! something happened in student table! :(").show();
+        }
+    }
+    private boolean update(){
+        boolean isUpdated = false;
+        try {
+            isUpdated = studentBO.update(fillObject_Room());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return isUpdated;
     }
 
     @FXML
