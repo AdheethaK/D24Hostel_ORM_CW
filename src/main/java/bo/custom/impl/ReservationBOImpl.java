@@ -4,6 +4,9 @@ import bo.custom.ReservationBO;
 import dao.DAOFactory;
 import dao.custom.ReservationDAO;
 import dto.ReservationDTO;
+import dto.RoomDTO;
+import entity.Reservation;
+import entity.Room;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -12,7 +15,6 @@ public class ReservationBOImpl implements ReservationBO {
 
     ReservationDAO reservationDAO = (ReservationDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.RESERVATION);
 
-
     @Override
     public String generateNewID() throws Exception { //➕ NEW ID
         return null;
@@ -20,17 +22,31 @@ public class ReservationBOImpl implements ReservationBO {
 
     @Override
     public boolean update(ReservationDTO entity) throws Exception { //🔃
-        return false;
+        return reservationDAO.update(new Reservation(
+                entity.getReservationId(),
+                entity.getDate(),
+                entity.getStudentId(),
+                entity.getRoomTypeId(),
+                entity.getStatus()
+        ));
     }
 
     @Override
     public boolean delete(String id) throws Exception { //🗑️
-        return false;
+        return reservationDAO.delete(id);
     }
 
     @Override
     public ReservationDTO search(String id) throws Exception { //🔍
-        return null;
+        Reservation reservation =  reservationDAO.search(id);
+
+        return new ReservationDTO(
+                reservation.getReservationId(),
+                reservation.getDate(),
+                reservation.getStudentId(),
+                reservation.getRoomTypeId(),
+                reservation.getStatus()
+        );
     }
 
     @Override
@@ -50,6 +66,12 @@ public class ReservationBOImpl implements ReservationBO {
 
     @Override
     public boolean add(ReservationDTO entity) throws Exception { //✔
-        return false;
+        return reservationDAO.add(new Reservation(
+                entity.getReservationId(),
+                entity.getDate(),
+                entity.getStudentId(),
+                entity.getRoomTypeId(),
+                entity.getStatus()
+        ));
     }
 }

@@ -1,8 +1,11 @@
 package controller;
 
+import bo.BOFactory;
+import bo.custom.StudentBO;
 import com.jfoenix.controls.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -11,8 +14,10 @@ import javafx.scene.layout.AnchorPane;
 import util.NewWindowUI;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class StudentFormController {
+public class StudentFormController implements Initializable {
     @FXML private AnchorPane pane;
     @FXML private JFXTextField txtStudentID;
     @FXML private JFXTextField txtName;
@@ -34,33 +39,40 @@ public class StudentFormController {
     @FXML private JFXButton btnErase;
     @FXML private ImageView imgProfile;
 
-    @FXML
-    void btnAddOnAction(ActionEvent event) {
+    StudentBO studentBO = (StudentBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.STUDENT);
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
 
     @FXML
-    void btnDeleteOnAction(ActionEvent event) {
+    void btnAddOnAction(ActionEvent event) { //➕ NEW ID
 
     }
 
     @FXML
-    void btnEraseOnAction(ActionEvent event) {
+    void btnUpdateOnAction(ActionEvent event) { //🔃
 
     }
 
     @FXML
-    void btnSaveOnAction(ActionEvent event) {
+    void btnDeleteOnAction(ActionEvent event) { //🗑️
 
     }
 
     @FXML
-    void btnSearchOnAction(ActionEvent event) {
+    void btnSearchOnAction(ActionEvent event) { //🔍
 
     }
 
     @FXML
-    void btnUpdateOnAction(ActionEvent event) {
+    void btnSaveOnAction(ActionEvent event) { //✔️
+
+    }
+
+    @FXML
+    void btnEraseOnAction(ActionEvent event) { //⌫
 
     }
 
