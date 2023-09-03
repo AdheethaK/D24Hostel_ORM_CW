@@ -68,13 +68,26 @@ public class StudentFormController implements Initializable {
     }
 
     @FXML
-    void btnUpdateOnAction(ActionEvent event) { //🔃
+    void btnUpdateOnAction(ActionEvent event) { //🔃 add.png
 
     }
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) { //🗑️
-
+        if(delete()){
+            new Alert(Alert.AlertType.CONFIRMATION,"Congratulations! Student successfully deleted! :)").show();
+        }else{
+            new Alert(Alert.AlertType.ERROR,"oops! something happened in student table! :(").show();
+        }
+    }
+    private boolean delete(){
+        boolean isDeleted = false;
+        try {
+            isDeleted = studentBO.delete(txtStudentID.getText());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return isDeleted;
     }
 
     @FXML
