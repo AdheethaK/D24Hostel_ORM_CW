@@ -79,7 +79,26 @@ public class StudentFormController implements Initializable {
 
     @FXML
     void btnSearchOnAction(ActionEvent event) { //🔍
-
+        if(!search()) new Alert(Alert.AlertType.ERROR,"oops! this student does not exist! :(").show();
+    }
+    private boolean search(){
+        boolean isExist = false;
+        try {
+            StudentDTO studentDTO = studentBO.search(txtStudentID.getText());
+            fillAllFields(studentDTO);
+            if(studentDTO != null) isExist = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return isExist;
+    }
+    private void fillAllFields(StudentDTO studentDTO){
+        txtStudentID.setText(studentDTO.getId());
+        txtName.setText(studentDTO.getName());
+        txtAddress.setText(studentDTO.getAddress());
+        txtContactNo.setText(studentDTO.getContactNo());
+        datePickDOB.setValue(studentDTO.getDob());
+        cmbGender.setValue(studentDTO.getGender());
     }
 
     @FXML
