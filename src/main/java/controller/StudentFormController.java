@@ -51,15 +51,7 @@ public class StudentFormController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        List<String> genderList = new ArrayList<>();
-        genderList.add("female");
-        genderList.add("male");
-        genderList.add("rather not say");
-
-        for (String gender : genderList){
-            ObList_gender.add(gender);
-        }
-        cmbGender.setItems(ObList_gender);
+        setCmbGender();
     }
 
     @FXML
@@ -186,5 +178,17 @@ public class StudentFormController implements Initializable {
         System.out.println("it works! :)");
     }
 
+    //fill the gender comboBox
+    private void setCmbGender(){
+        List<String> genderList = new ArrayList<>();
+        genderList.add("female");
+        genderList.add("male");
+        genderList.add("rather not say");
+
+        for (String gender : genderList){
+            ObList_gender.add(gender);
+        }
+        cmbGender.setItems(ObList_gender);
+    }
 }
 

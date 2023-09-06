@@ -58,7 +58,7 @@ public class StudentBOImpl implements StudentBO {
 
     @Override
     public ArrayList<String> getAllIds() throws Exception { //🔍 ID ALL
-        return null;
+        return studentDAO.getAllIds();
     }
 
     @Override

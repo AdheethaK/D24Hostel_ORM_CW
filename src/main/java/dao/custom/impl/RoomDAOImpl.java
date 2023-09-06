@@ -1,10 +1,10 @@
 package dao.custom.impl;
 
 import dao.custom.RoomDAO;
-import dto.RoomDTO;
 import entity.Room;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import util.FactoryConfiguration;
 
 import java.sql.SQLException;
@@ -56,7 +56,18 @@ public class RoomDAOImpl implements RoomDAO {
 
     @Override
     public ArrayList<String> getAllIds() throws Exception { //🔍 ID ALL
-        return null;
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        Query query=session.createQuery("select roomTypeId from Room ");
+        ArrayList<String> list = (ArrayList<String>) query.list();
+        for (String id: list){
+            System.out.println(id);
+        }
+
+        transaction.commit();
+        session.close();
+        return list;
     }
 
     @Override

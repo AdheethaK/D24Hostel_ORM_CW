@@ -52,7 +52,7 @@ public class RoomBOImpl implements RoomBO {
 
     @Override
     public ArrayList<String> getAllIds() throws Exception { //🔍 ID ALL
-        return null;
+        return roomDAO.getAllIds();
     }
 
     @Override

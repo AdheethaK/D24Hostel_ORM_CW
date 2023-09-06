@@ -1,10 +1,10 @@
 package dao.custom.impl;
 
 import dao.custom.StudentDAO;
-import entity.Room;
 import entity.Student;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import util.FactoryConfiguration;
 
 import java.sql.SQLException;
@@ -55,7 +55,18 @@ public class StudentDAOImpl implements StudentDAO {
 
     @Override
     public ArrayList<String> getAllIds() throws Exception { //🔍 ID ALL
-        return null;
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        Query query=session.createQuery("select id from Student ");
+        ArrayList<String> list = (ArrayList<String>) query.list();
+        for (String id: list){
+            System.out.println(id);
+        }
+
+        transaction.commit();
+        session.close();
+        return list;
     }
 
     @Override
