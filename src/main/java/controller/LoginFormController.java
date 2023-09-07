@@ -1,14 +1,14 @@
 package controller;
 
-import com.jfoenix.controls.JFXButton;
-import javafx.event.ActionEvent;
+import com.jfoenix.controls.JFXRadioButton;
+import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 import util.Navigation;
+import util.NewWindowUI;
 import util.Routes;
 
 import java.io.IOException;
@@ -16,37 +16,39 @@ import java.io.IOException;
 public class LoginFormController {
 
     @FXML private AnchorPane pane;
-    @FXML private ImageView imgExit;
-    @FXML private JFXButton btnLogin;
-    @FXML private JFXButton btnSignUp;
-    @FXML private JFXButton btnCancel;
+    @FXML private JFXTextField txtUsername;
+    @FXML private JFXTextField txtPassword;
+    @FXML private Label lblUsernameError;
+    @FXML private Label lblPasswordError;
+    @FXML private JFXRadioButton btnShowPassword;
+    @FXML private Label imgWelcome;
 
     @FXML
-    void btnCancelOnAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnLoginOnAction(ActionEvent event) {
+    void imgLoginOnMouseClicked(MouseEvent event) {
         try {
-            Navigation.navigate(Routes.MenuForm,pane);
-        } catch (IOException exception) {
-            exception.printStackTrace();
+            NewWindowUI.getNewWindow("MenuForm.fxml", "Main Menu",pane);
+        } catch (IOException e) {
+            e.printStackTrace();
             new Alert(Alert.AlertType.ERROR,"UI not found!").show();
         }
     }
 
     @FXML
-    void btnSignUpOnAction(ActionEvent event) {
-
+    void lblForgotPasswordOnMouseClicked(MouseEvent event) {
+        System.out.println("it works! :)");
     }
 
     @FXML
-    void imgExitOnMouseClicked(MouseEvent event) {
-        Stage stage = (Stage) imgExit.getScene().getWindow();
-        stage.close();
+    void imgBackOnMouseClicked(MouseEvent event) {
+        try {
+            NewWindowUI.getNewWindow("WelcomeForm.fxml", "Welcome Form",pane);
+        } catch (IOException e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR,"UI not found!").show();
+        }
     }
 
 }
+
 
 

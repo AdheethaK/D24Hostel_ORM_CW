@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pane" prefHeight="636.0" prefWidth="1249.0" style="-fx-background-radius: 50px; -fx-border-radius: 50px; -fx-border-color: #000000; -fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.WelcomeFormController">
+   <children>
+      <ImageView fitHeight="618.0" fitWidth="532.0" layoutX="24.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/download%20(1).jpg" />
+         </image>
+      </ImageView>
+      <GridPane layoutX="571.0" layoutY="76.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="10.0" minWidth="10.0" prefWidth="10.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="600.0" minWidth="600.0" prefWidth="600.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="10.0" minWidth="10.0" prefWidth="10.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="95.0" minHeight="60.0" prefHeight="89.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="355.0" minHeight="290.0" prefHeight="328.0" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="350.0" minHeight="15.0" prefHeight="23.0" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" valignment="CENTER" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="HOSTEL MANAGEMENT" textFill="#837f7f" GridPane.columnIndex="1">
+               <font>
+                  <Font name="Calibri Bold" size="60.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="299.0" prefWidth="426.0" text="The D24 Hostel is a prominent &#10;hostel accommodation&#10; located in the Colombo area.&#10; It could reserve rooms for&#10; all university students who are &#10;studying on Colombo&#10; campuses. &#10;This Hostel gives room facilities for &#10;both boys and girls. At a time, &#10;almost 125 students can get &#10;hostelaccommodation from here." textAlignment="CENTER" textFill="#575757" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Berlin Sans FB" size="22.0" />
+               </font>
+            </Label>
+            <Label fx:id="imgWelcome" onMouseClicked="#imgWelcomeOnMouseClicked" prefHeight="41.0" prefWidth="292.0" style="-fx-background-color: #D5C6C1; -fx-alignment: center; -fx-background-radius: 50px;" text="WELCOME" textAlignment="RIGHT" textFill="#757373" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <font>
+                  <Font name="Berlin Sans FB" size="32.0" />
+               </font>
+            </Label>
+         </children>
+      </GridPane>
+      <ImageView fx:id="imgClose" fitHeight="57.0" fitWidth="61.0" layoutX="1162.0" layoutY="19.0" onMouseClicked="#imgCloseOnMouseClicked" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/cancel%20(2).png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

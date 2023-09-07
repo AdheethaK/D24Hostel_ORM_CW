@@ -4,11 +4,11 @@ import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import util.Navigation;
+import javafx.scene.layout.Pane;
 import util.NewWindowUI;
-import util.Routes;
 
 import java.io.IOException;
 
@@ -18,6 +18,8 @@ public class MenuFormController {
     @FXML private JFXButton btnStudent;
     @FXML private JFXButton btnRoom;
     @FXML private JFXButton btnReservation;
+    @FXML private Pane tblPane;
+    @FXML private Label lblDate;
 
     @FXML
     void btnReservationOnAction(ActionEvent event) {
@@ -52,12 +54,28 @@ public class MenuFormController {
     @FXML
     void imgBackOnMouseClicked(MouseEvent event) {
         try {
-            Navigation.navigate(Routes.LoginForm,pane);
+            NewWindowUI.getNewWindow("LoginForm.fxml", "Login Form",pane);
         } catch (IOException exception) {
             exception.printStackTrace();
             new Alert(Alert.AlertType.ERROR,"UI not found!").show();
         }
     }
 
+    @FXML
+    void imgtblReservedOnMouseClicked(MouseEvent event) {
+        System.out.println("it works! :0");
+    }
+
+    @FXML
+    void imgtblRoomOnMouseClicked(MouseEvent event) {
+        System.out.println("it works! :0");
+    }
+
+    @FXML
+    void imgtblStudentOnMouseClicked(MouseEvent event) {
+        System.out.println("it works! :0");
+    }
+
 }
+
 
