@@ -16,14 +16,14 @@ public class Navigation {
         Stage window = (Stage)Navigation.pane.getScene().getWindow();
 
         switch (route){
-            case LoginForm:
-                initUI("/view/LoginForm.fxml");
+            case StudentTableForm:
+                initUI("/view/StudentTableForm.fxml");
                 break;
-            case MenuForm:
-                initUI("/view/MenuForm.fxml");
+            case RoomTableForm:
+                initUI("/view/RoomTableForm.fxml");
                 break;
-            case StudentForm:
-                initUI("/view/StudentForm.fxml");
+            case ReservationTableForm:
+                initUI("/view/ReservationTableForm.fxml");
                 break;
             default:
                 new Alert(Alert.AlertType.ERROR,"UI not found!").show();

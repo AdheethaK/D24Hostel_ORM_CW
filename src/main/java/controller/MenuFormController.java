@@ -8,17 +8,19 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import util.Navigation;
 import util.NewWindowUI;
+import util.Routes;
 
 import java.io.IOException;
 
 public class MenuFormController {
 
+    @FXML private AnchorPane tblPane;
     @FXML private AnchorPane pane;
     @FXML private JFXButton btnStudent;
     @FXML private JFXButton btnRoom;
     @FXML private JFXButton btnReservation;
-    @FXML private Pane tblPane;
     @FXML private Label lblDate;
 
     @FXML
@@ -73,7 +75,12 @@ public class MenuFormController {
 
     @FXML
     void imgtblStudentOnMouseClicked(MouseEvent event) {
-        System.out.println("it works! :0");
+        try {
+            Navigation.navigate(Routes.StudentTableForm,tblPane);
+        } catch (IOException e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR,"UI not found!").show();
+        }
     }
 
 }

@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
@@ -65,7 +64,6 @@
             </JFXButton>
          </children>
       </GridPane>
-      <Pane fx:id="tblPane" layoutX="13.0" layoutY="87.0" prefHeight="503.0" prefWidth="1071.0" style="-fx-background-color: #FAE96B;" />
       <ImageView fitHeight="69.0" fitWidth="68.0" layoutX="38.0" layoutY="19.0" onMouseClicked="#imgBackOnMouseClicked" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/previous.png" />
@@ -115,5 +113,6 @@
             <Font name="Berlin Sans FB" size="21.0" />
          </font>
       </Label>
+      <AnchorPane fx:id="tblPane" layoutX="20.0" layoutY="92.0" prefHeight="503.0" prefWidth="1071.0" style="-fx-background-color: #F64168;" />
    </children>
 </AnchorPane>
