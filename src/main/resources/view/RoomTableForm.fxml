@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controller.RoomTableFormController"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane fx:id="pane" prefHeight="503.0" prefWidth="1071.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RoomTableFormController">
+   <children>
+      <TableView layoutX="8.0" layoutY="7.0" prefHeight="487.0" prefWidth="1057.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #000000;">
+         <columns>
+            <TableColumn prefWidth="204.0" text="ROOM TYPE ID" />
+            <TableColumn maxWidth="496.0" minWidth="354.0" prefWidth="354.0" text="TYPE">
+               <columns>
+                  <TableColumn maxWidth="200.0" minWidth="200.0" prefWidth="200.0" text="AC" />
+                  <TableColumn maxWidth="200.0" minWidth="176.0" prefWidth="185.0" text="FOOD" />
+               </columns>
+            </TableColumn>
+            <TableColumn maxWidth="343.0" prefWidth="224.0" text="KEY MONEY" />
+            <TableColumn prefWidth="75.0" text="QTY" />
+            <TableColumn prefWidth="165.0" text="RESERVATIONS" />
+         </columns>
+      </TableView>
+   </children>
 </AnchorPane>
