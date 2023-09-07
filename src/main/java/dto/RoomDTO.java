@@ -9,7 +9,8 @@ import lombok.*;
 @ToString
 public class RoomDTO {
     private String roomTypeId;
-    private String type;
+    private boolean typeFOOD;
+    private boolean typeAC;
     private Double keyMoney;
     private Integer qty;
 }

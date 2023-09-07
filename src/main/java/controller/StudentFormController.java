@@ -24,6 +24,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class StudentFormController implements Initializable {
+
+    @FXML private JFXButton btnRefreshTable;
     @FXML private AnchorPane pane;
     @FXML private JFXTextField txtStudentID;
     @FXML private JFXTextField txtName;
@@ -178,6 +180,10 @@ public class StudentFormController implements Initializable {
         System.out.println("it works! :)");
     }
 
+    @FXML
+    void btnRefreshTableOnAction(ActionEvent actionEvent) {
+    }
+
     //fill the gender comboBox
     private void setCmbGender(){
         List<String> genderList = new ArrayList<>();
@@ -190,5 +196,6 @@ public class StudentFormController implements Initializable {
         }
         cmbGender.setItems(ObList_gender);
     }
+
 }
 

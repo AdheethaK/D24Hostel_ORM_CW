@@ -22,7 +22,8 @@ public class RoomBOImpl implements RoomBO {
     public boolean update(RoomDTO entity) throws Exception { //🔃
         return roomDAO.update(new Room(
                 entity.getRoomTypeId(),
-                entity.getType(),
+                entity.isTypeFOOD(),
+                entity.isTypeAC(),
                 entity.getKeyMoney(),
                 entity.getQty()
         ));
@@ -39,7 +40,8 @@ public class RoomBOImpl implements RoomBO {
 
         return new RoomDTO(
                 room.getRoomTypeId(),
-                room.getType(),
+                room.isTypeFOOD(),
+                room.isTypeAC(),
                 room.getKeyMoney(),
                 room.getQty()
         );
@@ -64,7 +66,8 @@ public class RoomBOImpl implements RoomBO {
     public boolean add(RoomDTO entity) throws Exception { //✔
         return roomDAO.add(new Room(
                 entity.getRoomTypeId(),
-                entity.getType(),
+                entity.isTypeFOOD(),
+                entity.isTypeAC(),
                 entity.getKeyMoney(),
                 entity.getQty()
         ));

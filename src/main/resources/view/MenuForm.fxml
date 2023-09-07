@@ -74,7 +74,7 @@
             <Font name="Calibri Bold" size="60.0" />
          </font>
       </Label>
-      <GridPane layoutX="177.0" layoutY="29.0" prefHeight="48.0" prefWidth="175.0">
+      <GridPane layoutX="177.0" layoutY="7.0" prefHeight="48.0" prefWidth="175.0">
         <columnConstraints>
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="10.0" minWidth="10.0" prefWidth="10.0" />
@@ -86,26 +86,26 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ImageView fitHeight="43.0" fitWidth="43.0" onMouseClicked="#imgtblStudentOnMouseClicked" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgtblStudent" fitHeight="43.0" fitWidth="43.0" onMouseClicked="#imgtblStudentOnMouseClicked" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/graduation.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="72.0" fitWidth="38.0" layoutX="12.0" layoutY="10.0" onMouseClicked="#imgtblRoomOnMouseClicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+            <ImageView fx:id="imgtblRoom" fitHeight="72.0" fitWidth="38.0" layoutX="12.0" layoutY="10.0" onMouseClicked="#imgtblRoomOnMouseClicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
                <image>
                   <Image url="@../img/bed%20(2).png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="48.0" fitWidth="41.0" layoutX="73.0" layoutY="10.0" onMouseClicked="#imgtblReservedOnMouseClicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4">
+            <ImageView fx:id="imgtblReserved" fitHeight="48.0" fitWidth="41.0" layoutX="73.0" layoutY="10.0" onMouseClicked="#imgtblReservedOnMouseClicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4">
                <image>
                   <Image url="@../img/reservation%20(2).png" />
                </image>
             </ImageView>
          </children>
       </GridPane>
-      <Label fx:id="lblDate" layoutX="803.0" layoutY="17.0" prefHeight="25.0" prefWidth="363.0" style="-fx-alignment: center;" textFill="#6b6565">
+      <Label fx:id="lblDate" layoutX="803.0" layoutY="12.0" prefHeight="25.0" prefWidth="363.0" style="-fx-alignment: center;" textFill="#b141f6">
          <font>
-            <Font name="Berlin Sans FB" size="21.0" />
+            <Font name="Berlin Sans FB" size="27.0" />
          </font>
       </Label>
       <Label layoutX="345.0" layoutY="598.0" prefHeight="26.0" prefWidth="559.0" style="-fx-alignment: center;" text="Developed by Adheetha Kalupahana GDSE65 IJSE Panadura" textFill="#6b6565">
@@ -113,6 +113,50 @@
             <Font name="Berlin Sans FB" size="21.0" />
          </font>
       </Label>
-      <AnchorPane fx:id="tblPane" layoutX="20.0" layoutY="92.0" prefHeight="503.0" prefWidth="1071.0" style="-fx-background-color: #F64168;" />
+      <AnchorPane fx:id="tblPane" layoutX="20.0" layoutY="92.0" prefHeight="503.0" prefWidth="1071.0" style="-fx-background-color: #FFFFFF;">
+         <children>
+            <ImageView fitHeight="48.0" fitWidth="51.0" layoutX="218.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/arrow%20(2).png" />
+               </image>
+            </ImageView>
+            <Label layoutX="273.0" layoutY="17.0" prefHeight="40.0" prefWidth="244.0" text="Choose a table ! ">
+               <font>
+                  <Font name="Calibri" size="34.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="40.0" fitWidth="38.0" layoutX="506.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/smile%20(2).png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="196.0" fitWidth="500.0" layoutX="33.0" layoutY="293.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/img_background.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="196.0" fitWidth="500.0" layoutX="544.0" layoutY="293.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/img_background.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="196.0" fitWidth="500.0" layoutX="30.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/img_background.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="196.0" fitWidth="500.0" layoutX="544.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/img_background.jpg" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <Label fx:id="lblTblName" alignment="CENTER_RIGHT" layoutX="759.0" layoutY="57.0" prefHeight="32.0" prefWidth="279.0" textAlignment="RIGHT" textFill="#393939">
+         <font>
+            <Font name="Berlin Sans FB" size="30.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="imgTable" fitHeight="32.0" fitWidth="30.0" layoutX="1055.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

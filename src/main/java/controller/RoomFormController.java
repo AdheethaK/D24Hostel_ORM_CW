@@ -3,6 +3,7 @@ package controller;
 import bo.BOFactory;
 import bo.custom.RoomBO;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import dto.RoomDTO;
@@ -14,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import util.NewWindowUI;
@@ -24,6 +26,11 @@ import java.util.ResourceBundle;
 
 public class RoomFormController implements Initializable {
 
+    @FXML private JFXCheckBox checkBoxFood;
+    @FXML private JFXCheckBox checkBoxAC;
+    @FXML private ImageView imgFood;
+    @FXML private ImageView imgAC;
+    @FXML private JFXButton btnRefreshTable;
     @FXML private AnchorPane pane;
     @FXML private Label lblRoomTypeIDError;
     @FXML private Label lblTypeError;
@@ -105,9 +112,26 @@ public class RoomFormController implements Initializable {
     }
     private void fillAllFields(RoomDTO roomDTO){
         txtRoomTypeID.setText(roomDTO.getRoomTypeId());
-        txtType.setText(roomDTO.getType());
+        fillCheckBoxFOODField(roomDTO.isTypeFOOD());
+        fillCheckBoxACField(roomDTO.isTypeAC());
         txtKeyMoney.setText(Double.toString(roomDTO.getKeyMoney()));
         txtQTY.setText(Integer.toString(roomDTO.getQty()));
+    }
+    //set typeFOOD value
+    private void fillCheckBoxFOODField(boolean value){
+        if (value == true){
+            checkBoxFood.setSelected(true);
+        }else {
+            checkBoxFood.setSelected(false);
+        }
+    }
+    //set typeAC value
+    private void fillCheckBoxACField(boolean value){
+        if (value == true){
+            checkBoxAC.setSelected(true);
+        } else {
+            checkBoxAC.setSelected(false);
+        }
     }
 
     @FXML
@@ -131,10 +155,65 @@ public class RoomFormController implements Initializable {
     private RoomDTO fillObject_Room(){
         return new RoomDTO(
                 txtRoomTypeID.getText(),
-                txtType.getText(),
+                getTypeFOOD(),
+                getTypeAC(),
                 Double.parseDouble(txtKeyMoney.getText()),
                 Integer.parseInt(txtQTY.getText())
         );
+    }
+    //get typeFOOD value
+    private boolean getTypeFOOD(){
+        if (checkBoxFood.isSelected()){
+            return true;
+        }else {
+            return false;
+        }
+    }
+    //get typeAC value
+    private boolean getTypeAC(){
+        if (checkBoxAC.isSelected()){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    @FXML
+    void  btnRefreshTableOnAction(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    void checkBoxFoodOnAction(ActionEvent actionEvent) {
+        if(checkBoxFood.isSelected()){
+            setOpacityImgFood(1);
+        }else {
+            setOpacityImgFood(0);
+        }
+    }
+
+    private void setOpacityImgFood(int num){ //halfOpacity-->0  fullOpacity-->1
+        switch (num){
+            case 0:imgFood.setOpacity(0.5);break;
+            case 1:imgFood.setOpacity(1);break;
+            default:new Alert(Alert.AlertType.ERROR,"invalid argument! :0").show();
+        }
+    }
+
+    @FXML
+    void checkBoxACOnAction(ActionEvent actionEvent) {
+        if (checkBoxAC.isSelected()){
+            setOpacityImgAC(1);
+        }else {
+            setOpacityImgAC(0);
+        }
+    }
+
+    private void setOpacityImgAC(int num){ //halfOpacity-->0  fullOpacity-->1
+        switch (num){
+            case 0:imgAC.setOpacity(0.5);break;
+            case 1:imgAC.setOpacity(1);break;
+            default:new Alert(Alert.AlertType.ERROR,"invalid argument! :0").show();
+        }
     }
 
     @FXML
@@ -151,5 +230,6 @@ public class RoomFormController implements Initializable {
             new Alert(Alert.AlertType.ERROR,"UI not found!").show();
         }
     }
+
 }
 
