@@ -1,6 +1,9 @@
 package dto;
 
+import entity.Reservation;
 import lombok.*;
+
+import java.util.ArrayList;
 
 @NoArgsConstructor
 @AllArgsConstructor

@@ -23,6 +23,4 @@ public class Student {
     private String contactNo;
     private LocalDate dob;
     private String gender;
-    @OneToMany(mappedBy = "studentId")
-    private ArrayList<Reservation> reservations;
 }

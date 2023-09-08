@@ -14,15 +14,14 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import util.NewWindowUI;
 
 import java.io.FileInputStream;
@@ -42,12 +41,11 @@ import java.util.ResourceBundle;
 public class RoomFormController implements Initializable {
 
     @FXML private TableView<RoomTM> tblRoom;
-    @FXML private TableColumn colID;
-    @FXML private TableColumn colTYPE;
-    @FXML private TableColumn colFOOD;
-    @FXML private TableColumn colAC;
-    @FXML private TableColumn colKEYMONEY;
-    @FXML private TableColumn colQTY;
+    @FXML private TableColumn<RoomTM,String> colID;
+    @FXML private TableColumn<RoomTM,ImageView> colFOOD;
+    @FXML private TableColumn<RoomTM,ImageView> colAC;
+    @FXML private TableColumn<RoomTM,Double> colKEYMONEY;
+    @FXML private TableColumn<RoomTM,Integer> colQTY;
     @FXML private Label lblDate;
     @FXML private ImageView imgProfile;
     @FXML private Label lblUserFullname;
@@ -208,42 +206,37 @@ public class RoomFormController implements Initializable {
 
     @FXML
     void  btnRefreshTableOnAction(ActionEvent actionEvent) {
-        ArrayList<RoomTM> list = new ArrayList<>();
-        String imgLocation = "D:\\My Projects\\HIBERNATE\\D24Hostel\\src\\main\\resources\\img\\check.png";
-        ImageView img = new ImageView(new Image(this.getClass().getResourceAsStream(imgLocation), 50, 50, false, false));
+        ArrayList<RoomTM> tms = new ArrayList<>();
         try {
             ArrayList<RoomDTO> roomDTOS = roomBO.getAll();
-            for (RoomDTO roomDTO: roomDTOS){
-                list.add(new RoomTM(
-                        roomDTO.getRoomTypeId(),
-                        img,
-                        img,
-                        roomDTO.getKeyMoney(),
-                        roomDTO.getQty()
+            for (RoomDTO r : roomDTOS){
+                tms.add(new RoomTM(
+                        r.getRoomTypeId(),
+                        getImageView(r.isTypeFOOD()),
+                        getImageView(r.isTypeAC()),
+                        r.getKeyMoney(),
+                        r.getQty()
                 ));
             }
+            for (RoomTM roomTM: tms){
+                obList_room.add(roomTM);
+            }
+            tblRoom.setItems(obList_room);
         } catch (Exception e) {
             e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR,"oops! something happened in room table! :(").show();
         }
-        for(RoomTM ob:list){
-            obList_room.add(ob);
-        }
-        tblRoom.setItems(obList_room);
     }
-    private ImageView getImageView(int num){ //create images for column food and column ac
-        switch (num){//1-->yes   2--->no
-            case 1:
-                String locationYES = "D:\\My Projects\\HIBERNATE\\D24Hostel\\src\\main\\resources\\img\\check.png";
-                Image imageYES = new Image(this.getClass().getResourceAsStream(locationYES), 50, 50, false, false);
-                return new ImageView(imageYES);
-            case 2:
-                String locationNO = "D:\\My Projects\\HIBERNATE\\D24Hostel\\src\\main\\resources\\img\\block.png";
-                Image imageNO = new Image(this.getClass().getResourceAsStream(locationNO), 50, 50, false, false);
-                return new ImageView(imageNO);
-            default:new Alert(Alert.AlertType.ERROR,"oops! invalid argument! :(").show();
-        }
-        return null;
+    //ImageView
+    private ImageView getImageView(boolean value){
+        //img
+        Image img = new Image(getClass().getResourceAsStream("/img/block.png"));
+
+        //img view
+        ImageView imgView = new ImageView(img);
+        imgView.setFitHeight(40);
+        imgView.setFitWidth(40);
+
+        return imgView;
     }
 
     @FXML
@@ -315,7 +308,6 @@ public class RoomFormController implements Initializable {
 
     private void setPropertyValueFactory(){
         colID.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colTYPE.setCellValueFactory(new PropertyValueFactory<>("type"));
         colFOOD.setCellValueFactory(new PropertyValueFactory<>("food"));
         colAC.setCellValueFactory(new PropertyValueFactory<>("ac"));
         colKEYMONEY.setCellValueFactory(new PropertyValueFactory<>("keyMoney"));

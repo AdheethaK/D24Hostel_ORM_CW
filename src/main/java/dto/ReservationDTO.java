@@ -1,5 +1,7 @@
 package dto;
 
+import entity.Room;
+import entity.Student;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -12,7 +14,7 @@ import java.time.LocalDate;
 public class ReservationDTO {
     private String reservationId;
     private LocalDate date;
-    private String studentId;
-    private String roomTypeId;
+    private Student studentId;
+    private Room roomTypeId;
     private String status;
 }

@@ -1,8 +1,10 @@
 package dto;
 
+import entity.Reservation;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 @AllArgsConstructor
 @NoArgsConstructor
