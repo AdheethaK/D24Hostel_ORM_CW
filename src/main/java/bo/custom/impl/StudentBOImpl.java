@@ -63,7 +63,18 @@ public class StudentBOImpl implements StudentBO {
 
     @Override
     public ArrayList<StudentDTO> getAll() throws Exception { //🔍 ALL
-        return null;
+        ArrayList<StudentDTO> studentDTOS = new ArrayList<>();
+        for (Student s : studentDAO.getAll()){
+            studentDTOS.add(new StudentDTO(
+                    s.getId(),
+                    s.getName(),
+                    s.getAddress(),
+                    s.getContactNo(),
+                    s.getDob(),
+                    s.getGender()
+            ));
+        }
+        return studentDTOS;
     }
 
     @Override

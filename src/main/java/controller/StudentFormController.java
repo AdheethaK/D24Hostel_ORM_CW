@@ -5,6 +5,8 @@ import bo.custom.StudentBO;
 import com.jfoenix.controls.*;
 import dto.RoomDTO;
 import dto.StudentDTO;
+import dto.TM.RoomTM;
+import dto.TM.StudentTM;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,6 +14,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -19,12 +24,20 @@ import util.NewWindowUI;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class StudentFormController implements Initializable {
 
+    @FXML private TableView<StudentTM> tblStudent;
+    @FXML private TableColumn<StudentTM,String> colID;
+    @FXML private TableColumn<StudentTM,String> colNAME;
+    @FXML private TableColumn<StudentTM,String> colADDRESS;
+    @FXML private TableColumn<StudentTM,String> colCONTACTNO;
+    @FXML private TableColumn<StudentTM, LocalDate> colDOB;
+    @FXML private TableColumn<StudentTM,String> colGENDER;
     @FXML private JFXButton btnRefreshTable;
     @FXML private AnchorPane pane;
     @FXML private JFXTextField txtStudentID;
@@ -48,12 +61,14 @@ public class StudentFormController implements Initializable {
     @FXML private ImageView imgProfile;
 
     ObservableList<String> ObList_gender = FXCollections.observableArrayList();
+    private ObservableList<StudentTM> obList_tbl = FXCollections.observableArrayList();
 
     StudentBO studentBO = (StudentBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.STUDENT);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setCmbGender();
+        setPropertyValueFactory();
     }
 
     @FXML
@@ -182,6 +197,26 @@ public class StudentFormController implements Initializable {
 
     @FXML
     void btnRefreshTableOnAction(ActionEvent actionEvent) {
+        ArrayList<StudentTM> tms = new ArrayList<>();
+        try {
+            ArrayList<StudentDTO> studentDTOS = studentBO.getAll();
+            for (StudentDTO s : studentDTOS){
+                tms.add(new StudentTM(
+                        s.getId(),
+                        s.getName(),
+                        s.getAddress(),
+                        s.getContactNo(),
+                        s.getDob(),
+                        s.getGender()
+                ));
+            }
+            for (StudentTM studentTM: tms){
+                obList_tbl.add(studentTM);
+            }
+            tblStudent.setItems(obList_tbl);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     //fill the gender comboBox
@@ -197,5 +232,13 @@ public class StudentFormController implements Initializable {
         cmbGender.setItems(ObList_gender);
     }
 
+    private void setPropertyValueFactory() {
+        colID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colNAME.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colADDRESS.setCellValueFactory(new PropertyValueFactory<>("address"));
+        colCONTACTNO.setCellValueFactory(new PropertyValueFactory<>("contactNo"));
+        colDOB.setCellValueFactory(new PropertyValueFactory<>("dob"));
+        colGENDER.setCellValueFactory(new PropertyValueFactory<>("gender"));
+    }
 }
 
