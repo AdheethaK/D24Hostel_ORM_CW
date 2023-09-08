@@ -228,8 +228,21 @@ public class RoomFormController implements Initializable {
     }
     //ImageView
     private ImageView getImageView(boolean value){
+        int num = -1;
+        if(value == true){
+            num =1;
+        }else{
+            num = 0;
+        }
+        //choose image
+        String location = null;
+        switch (num){
+            case 0:location="block.png";break;
+            case 1:location = "check.png";break;
+            default:new Alert(Alert.AlertType.ERROR,"invalid argument! :0").show();
+        }
         //img
-        Image img = new Image(getClass().getResourceAsStream("/img/block.png"));
+        Image img = new Image(getClass().getResourceAsStream("/img/"+location));
 
         //img view
         ImageView imgView = new ImageView(img);
