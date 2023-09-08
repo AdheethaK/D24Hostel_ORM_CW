@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import dto.RoomDTO;
+import dto.TM.RoomTM;
 import entity.Room;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,17 +16,41 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import util.NewWindowUI;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class RoomFormController implements Initializable {
 
+    @FXML private TableView<RoomTM> tblRoom;
+    @FXML private TableColumn colID;
+    @FXML private TableColumn colTYPE;
+    @FXML private TableColumn colFOOD;
+    @FXML private TableColumn colAC;
+    @FXML private TableColumn colKEYMONEY;
+    @FXML private TableColumn colQTY;
+    @FXML private Label lblDate;
+    @FXML private ImageView imgProfile;
+    @FXML private Label lblUserFullname;
     @FXML private JFXCheckBox checkBoxFood;
     @FXML private JFXCheckBox checkBoxAC;
     @FXML private ImageView imgFood;
@@ -47,11 +72,14 @@ public class RoomFormController implements Initializable {
     @FXML private JFXButton btnSave;
     @FXML private JFXButton btnErase;
 
+    private ObservableList<RoomTM> obList_room = FXCollections.observableArrayList();
+
     RoomBO roomBO = (RoomBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ROOM);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        setPropertyValueFactory();
+        setDateAndTime();
     }
 
     @FXML
@@ -180,6 +208,42 @@ public class RoomFormController implements Initializable {
 
     @FXML
     void  btnRefreshTableOnAction(ActionEvent actionEvent) {
+        ArrayList<RoomTM> list = new ArrayList<>();
+        String imgLocation = "D:\\My Projects\\HIBERNATE\\D24Hostel\\src\\main\\resources\\img\\check.png";
+        ImageView img = new ImageView(new Image(this.getClass().getResourceAsStream(imgLocation), 50, 50, false, false));
+        try {
+            ArrayList<RoomDTO> roomDTOS = roomBO.getAll();
+            for (RoomDTO roomDTO: roomDTOS){
+                list.add(new RoomTM(
+                        roomDTO.getRoomTypeId(),
+                        img,
+                        img,
+                        roomDTO.getKeyMoney(),
+                        roomDTO.getQty()
+                ));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR,"oops! something happened in room table! :(").show();
+        }
+        for(RoomTM ob:list){
+            obList_room.add(ob);
+        }
+        tblRoom.setItems(obList_room);
+    }
+    private ImageView getImageView(int num){ //create images for column food and column ac
+        switch (num){//1-->yes   2--->no
+            case 1:
+                String locationYES = "D:\\My Projects\\HIBERNATE\\D24Hostel\\src\\main\\resources\\img\\check.png";
+                Image imageYES = new Image(this.getClass().getResourceAsStream(locationYES), 50, 50, false, false);
+                return new ImageView(imageYES);
+            case 2:
+                String locationNO = "D:\\My Projects\\HIBERNATE\\D24Hostel\\src\\main\\resources\\img\\block.png";
+                Image imageNO = new Image(this.getClass().getResourceAsStream(locationNO), 50, 50, false, false);
+                return new ImageView(imageNO);
+            default:new Alert(Alert.AlertType.ERROR,"oops! invalid argument! :(").show();
+        }
+        return null;
     }
 
     @FXML
@@ -221,6 +285,24 @@ public class RoomFormController implements Initializable {
 
     }
 
+    public void imgProfileOnMouseClicked(MouseEvent mouseEvent) {
+    }
+
+    public void lblUserFullnameOnMouseClicked(MouseEvent mouseEvent) {
+    }
+
+    private void setDateAndTime(){
+        // 1. get date/time
+        Date currentDateTime = new Date();
+
+        // 2. get Date with Zone & AM/PM marker
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss a z");
+        String formatterDateTime = dateFormat.format(currentDateTime);
+
+        //set value to lbl
+        lblDate.setText(formatterDateTime);
+    }
+
     @FXML
     void imgBackOnMouseClicked(MouseEvent event) {
         try {
@@ -229,6 +311,15 @@ public class RoomFormController implements Initializable {
             e.printStackTrace();
             new Alert(Alert.AlertType.ERROR,"UI not found!").show();
         }
+    }
+
+    private void setPropertyValueFactory(){
+        colID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colTYPE.setCellValueFactory(new PropertyValueFactory<>("type"));
+        colFOOD.setCellValueFactory(new PropertyValueFactory<>("food"));
+        colAC.setCellValueFactory(new PropertyValueFactory<>("ac"));
+        colKEYMONEY.setCellValueFactory(new PropertyValueFactory<>("keyMoney"));
+        colQTY.setCellValueFactory(new PropertyValueFactory<>("qty"));
     }
 
 }

@@ -2,6 +2,7 @@ package entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -16,7 +17,9 @@ public class Reservation {
     @Id
     private String reservationId;
     private LocalDate date;
-    private String studentId;
-    private String roomTypeId;
+    @ManyToOne
+    private Student studentId;
+    @ManyToOne
+    private Room roomTypeId;
     private String status;
 }

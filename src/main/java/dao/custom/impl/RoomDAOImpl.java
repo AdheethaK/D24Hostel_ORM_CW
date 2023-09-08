@@ -72,7 +72,22 @@ public class RoomDAOImpl implements RoomDAO {
 
     @Override
     public ArrayList<Room> getAll() throws Exception { //🔍 ALL
-        return null;
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        Query query=session.createQuery("from Room");
+        ArrayList<Room> list = (ArrayList<Room>) query.list();
+        for (Room room: list){
+            System.out.println(room.getRoomTypeId());
+            System.out.println(room.isTypeFOOD());
+            System.out.println(room.isTypeAC());
+            System.out.println(room.getKeyMoney());
+            System.out.println(room.getQty());
+        }
+
+        transaction.commit();
+        session.close();
+        return list;
     }
 
     @Override

@@ -1,8 +1,9 @@
 package entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,4 +18,6 @@ public class Room {
     private boolean typeAC;
     private Double keyMoney;
     private Integer qty;
+    @OneToMany(mappedBy = "roomTypeId")
+    private ArrayList<Reservation> reservations;
 }

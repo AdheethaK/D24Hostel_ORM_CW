@@ -59,7 +59,17 @@ public class RoomBOImpl implements RoomBO {
 
     @Override
     public ArrayList<RoomDTO> getAll() throws Exception { //🔍 ALL
-        return null;
+        ArrayList<RoomDTO> roomDTOS = new ArrayList<>();
+        for (Room r : roomDAO.getAll()){
+            roomDTOS.add(new RoomDTO(
+                    r.getRoomTypeId(),
+                    r.isTypeFOOD(),
+                    r.isTypeAC(),
+                    r.getKeyMoney(),
+                    r.getQty()
+            ));
+        }
+        return roomDTOS;
     }
 
     @Override

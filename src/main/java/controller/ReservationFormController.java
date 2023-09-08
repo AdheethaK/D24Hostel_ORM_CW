@@ -14,19 +14,41 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import util.NewWindowUI;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Array;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class ReservationFormController implements Initializable {
 
+    @FXML private ImageView imgProfile;
+    @FXML private Label lblUserFullname;
+    @FXML private ImageView imgTable;
+    @FXML private Label lblTable;
+    @FXML private Label lblDate;
+    @FXML private JFXDatePicker datePickerArrival;
+    @FXML private Label lblArrivalDateError;
+    @FXML private JFXDatePicker datePickerDeparture;
+    @FXML private Label lblDepartureDateError;
+    @FXML private JFXButton btnRefreshTable;
+    @FXML private ImageView imgStatus;
+    @FXML private ImageView imgSelectAll;
+    @FXML private ImageView imgSelectUnpaid;
+    @FXML private ImageView imgSelectPaid;
     @FXML private AnchorPane pane;
     @FXML private Label lblRoomTypeIDError;
     @FXML private Label lblTypeError;
@@ -57,6 +79,7 @@ public class ReservationFormController implements Initializable {
         fillStudentIds();
         fillRoomTypeIds();
         fillStatus();
+        setDateAndTime();
     }
 
     @FXML
@@ -92,6 +115,155 @@ public class ReservationFormController implements Initializable {
     @FXML
     void btnEraseOnAction(ActionEvent event) {
 
+    }
+
+    @FXML
+    void  datePickerArrivalOnAction(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    void  datePickerDepartureOnAction(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    void  btnRefreshTableOnAction(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    void  imgTableOnMouseClicked(MouseEvent mouseEvent) {
+    }
+
+    @FXML
+    void imgSelectAllOnMouseClicked(MouseEvent mouseEvent) {
+        //change opacity of image view
+        if(!(imgSelectUnpaid.getOpacity()==1))setOpacityImgSelectUnpaid(1);
+        if(!(imgSelectPaid.getOpacity()==1))setOpacityImgSelectPaid(1);
+        setOpacityImgSelectAll(0);
+        //set lbl
+        lblTable.setText("RESERVATIONS ALL");
+        //set img
+        settblImage(1);
+    }
+
+    @FXML
+    void imgSelectUnpaidOnMouseClicked(MouseEvent mouseEvent) {
+        //change opacity of image view
+        if(!(imgSelectAll.getOpacity()==1))setOpacityImgSelectAll(1);
+        if(!(imgSelectPaid.getOpacity()==1))setOpacityImgSelectPaid(1);
+        setOpacityImgSelectUnpaid(0);
+        //set lbl
+        lblTable.setText("RESERVATIONS UNPAID");
+        //set img
+        settblImage(2);
+    }
+
+    @FXML
+    void imgSelectPaidOnMouseClicked(MouseEvent mouseEvent) {
+        //change opacity of image view
+        if(!(imgSelectAll.getOpacity()==1))setOpacityImgSelectAll(1);
+        if(!(imgSelectUnpaid.getOpacity()==1))setOpacityImgSelectUnpaid(1);
+        setOpacityImgSelectPaid(0);
+        //set lbl
+        lblTable.setText("RESERVATIONS PAID");
+        //set img
+        settblImage(3);
+    }
+
+    private void setOpacityImgSelectAll(int num){ // change opacity for imgSelectAll
+        switch(num){
+            case 1:imgSelectAll.setOpacity(1);break;
+            case 0:imgSelectAll.setOpacity(0.5);break;
+            default:new Alert(Alert.AlertType.ERROR,"invalid argument! :0").show();
+        }
+    }
+    private void setOpacityImgSelectUnpaid(int num){ // change opacity for imgSelectUnpaid
+        switch(num){
+            case 1:imgSelectUnpaid.setOpacity(1);break;
+            case 0:imgSelectUnpaid.setOpacity(0.5);break;
+            default:new Alert(Alert.AlertType.ERROR,"invalid argument! :0").show();
+        }
+    }
+    private void setOpacityImgSelectPaid(int num){ // change opacity for imgSelectPAid
+        switch(num){
+            case 1:imgSelectPaid.setOpacity(1);break;
+            case 0:imgSelectPaid.setOpacity(0.5);break;
+            default:new Alert(Alert.AlertType.ERROR,"invalid argument! :0").show();
+        }
+    }
+    private void settblImage(int num){ //SelectAll-->1  SelectUnpaid-->2 SelectPaid->3
+        switch (num){
+            case 1:
+                try {
+                    String imageLocation = "D:\\My Projects\\HIBERNATE\\D24Hostel\\src\\main\\resources\\img\\tick-box.png";
+                    InputStream stream = new FileInputStream(imageLocation);
+                    Image image = new Image(stream);
+
+                    imgTable.setImage(image);
+                } catch (FileNotFoundException e) {
+                    new Alert(Alert.AlertType.ERROR,"Image not found!").show();
+                }
+                break;
+            case 2:
+                try {
+                    String imageLocation = "D:\\My Projects\\HIBERNATE\\D24Hostel\\src\\main\\resources\\img\\\\payday.png";
+                    InputStream stream = new FileInputStream(imageLocation);
+                    Image image = new Image(stream);
+
+                    imgTable.setImage(image);
+                } catch (FileNotFoundException e) {
+                    new Alert(Alert.AlertType.ERROR,"Image not found!").show();
+                }
+                break;
+            case 3:
+                try {
+                    String imageLocation = "D:\\My Projects\\HIBERNATE\\D24Hostel\\src\\main\\resources\\img\\paid.png";
+                    InputStream stream = new FileInputStream(imageLocation);
+                    Image image = new Image(stream);
+
+                    imgTable.setImage(image);
+                } catch (FileNotFoundException e) {
+                    new Alert(Alert.AlertType.ERROR,"Image not found!").show();
+                }
+                break;
+            default:new Alert(Alert.AlertType.ERROR,"invalid argument! :0").show();
+        }
+    }
+
+    @FXML
+    void  cmbStatusOnAction(ActionEvent actionEvent) {
+        switch (cmbStatus.getValue()){
+            case "Paid":
+                try {
+                    String imageLocation = "D:\\My Projects\\HIBERNATE\\D24Hostel\\src\\main\\resources\\img\\paid.png";
+                    InputStream stream = new FileInputStream(imageLocation);
+                    Image image = new Image(stream);
+
+                    imgStatus.setImage(image);
+                } catch (FileNotFoundException e) {
+                    new Alert(Alert.AlertType.ERROR,"Image not found!").show();
+                }
+                break;
+            case "Unpaid":
+                try {
+                    String imageLocation = "D:\\My Projects\\HIBERNATE\\D24Hostel\\src\\main\\resources\\img\\payday.png";
+                    InputStream stream = new FileInputStream(imageLocation);
+                    Image image = new Image(stream);
+
+                    imgStatus.setImage(image);
+                } catch (FileNotFoundException e) {
+                    new Alert(Alert.AlertType.ERROR,"Image not found!").show();
+                }
+                break;
+            default:new Alert(Alert.AlertType.ERROR,"invalid argument! :0").show();
+        }
+    }
+
+    @FXML
+    void  lblUserFullnameOnMouseClicked(MouseEvent mouseEvent) {
+    }
+
+    @FXML
+    void  imgProfileOnMouseClicked(MouseEvent mouseEvent) {
     }
 
     @FXML
@@ -147,6 +319,18 @@ public class ReservationFormController implements Initializable {
             obList_status.add(status);
         }
         cmbStatus.setItems(obList_status);
+    }
+
+    private void setDateAndTime(){
+        // 1. get date/time
+        Date currentDateTime = new Date();
+
+        // 2. get Date with Zone & AM/PM marker
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss a z");
+        String formatterDateTime = dateFormat.format(currentDateTime);
+
+        //set value to lbl
+        lblDate.setText(formatterDateTime);
     }
 
 }
