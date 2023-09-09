@@ -269,18 +269,18 @@
             <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <TableView prefHeight="470.0" prefWidth="603.0" GridPane.columnIndex="1">
+            <TableView fx:id="tblReservation" prefHeight="470.0" prefWidth="603.0" GridPane.columnIndex="1">
                <columns>
-                  <TableColumn maxWidth="161.0" minWidth="83.0" prefWidth="83.0" text="ID" />
-                  <TableColumn maxWidth="300.0" minWidth="205.0" prefWidth="287.0" text="DATE">
+                  <TableColumn fx:id="colID" maxWidth="161.0" minWidth="83.0" prefWidth="83.0" text="ID" />
+                  <TableColumn fx:id="colDATE" maxWidth="300.0" minWidth="205.0" prefWidth="287.0" text="DATE">
                      <columns>
-                        <TableColumn maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="ARRIVAL" />
-                        <TableColumn maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="DEPARTURE" />
+                        <TableColumn fx:id="colARRIVAL" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="ARRIVAL" />
+                        <TableColumn fx:id="colDEPARTURE" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="DEPARTURE" />
                      </columns>
                   </TableColumn>
-                  <TableColumn maxWidth="201.0" minWidth="90.0" prefWidth="99.0" text="STUDENT ID" />
-                  <TableColumn prefWidth="116.0" text="ROOM TYPE ID" />
-                  <TableColumn prefWidth="140.0" text="STATUS" />
+                  <TableColumn fx:id="colSTUDENT_ID" maxWidth="201.0" minWidth="90.0" prefWidth="99.0" text="STUDENT ID" />
+                  <TableColumn fx:id="colROOM_TYPE_ID" prefWidth="116.0" text="ROOM TYPE ID" />
+                  <TableColumn fx:id="colSTATUS" prefWidth="140.0" text="STATUS" />
                </columns>
             </TableView>
             <JFXButton fx:id="btnRefreshTable" buttonType="RAISED" onAction="#btnRefreshTableOnAction" prefHeight="45.0" prefWidth="189.0" style="-fx-background-color: #F6F641; -fx-background-radius: 50px;" text="Refresh Table" textFill="#464545" GridPane.columnIndex="1" GridPane.rowIndex="1">

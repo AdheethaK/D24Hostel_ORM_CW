@@ -11,7 +11,7 @@ import com.jfoenix.controls.JFXTextField;
 import dto.ReservationDTO;
 import dto.RoomDTO;
 import dto.StudentDTO;
-import entity.Student;
+import dto.TM.ReservationTM;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,6 +19,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -29,17 +32,23 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Array;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class ReservationFormController implements Initializable {
 
+    @FXML private TableView<ReservationTM> tblReservation;
+    @FXML private TableColumn<ReservationTM,String> colID;
+    @FXML private TableColumn<ReservationTM, LocalDate> colARRIVAL;
+    @FXML private TableColumn<ReservationTM,LocalDate> colDEPARTURE;
+    @FXML private TableColumn<ReservationTM,String> colSTUDENT_ID;
+    @FXML private TableColumn<ReservationTM,String> colROOM_TYPE_ID;
+    @FXML private TableColumn<ReservationTM,ImageView> colSTATUS;
     @FXML private ImageView imgProfile;
     @FXML private Label lblUserFullname;
     @FXML private ImageView imgTable;
@@ -74,6 +83,7 @@ public class ReservationFormController implements Initializable {
     ObservableList<String> obList_studentId = FXCollections.observableArrayList();
     ObservableList<String> obList_roomTypeId = FXCollections.observableArrayList();
     ObservableList<String> obList_status = FXCollections.observableArrayList();
+    ObservableList<ReservationTM> obList_reservation = FXCollections.observableArrayList();
 
     StudentBO studentBO = (StudentBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.STUDENT);
     RoomBO roomBO = (RoomBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ROOM);
@@ -85,6 +95,8 @@ public class ReservationFormController implements Initializable {
         fillRoomTypeIds();
         fillStatus();
         setDateAndTime();
+        setPropertyValueFactory();
+        setOpacityImgSelectAll(0);
     }
 
     @FXML
@@ -174,6 +186,51 @@ public class ReservationFormController implements Initializable {
 
     @FXML
     void  btnRefreshTableOnAction(ActionEvent actionEvent) {
+        ArrayList<ReservationTM> tms = new ArrayList<>();
+        try {
+            ArrayList<ReservationDTO> reservationDTOS = reservationBO.getAll();
+            for (ReservationDTO res : reservationDTOS){
+                tms.add(new ReservationTM(
+                        res.getReservationId(),
+                        res.getArrivalDate(),
+                        res.getDepartureDate(),
+                        getStudentID(res.getStudentId()),
+                        getRoomID(res.getRoomTypeId()),
+                        getImageView(res.getStatus())
+                ));
+            }
+            for (ReservationTM reservationTM: tms){
+                obList_reservation.add(reservationTM);
+            }
+            tblReservation.setItems(obList_reservation);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    //ImageView
+    private ImageView getImageView(String status){
+        //choose image
+        String location = null;
+        switch (status){
+            case "Paid":location="paid.png";break;
+            case "Unpaid":location = "payday.png";break;
+            default:new Alert(Alert.AlertType.ERROR,"invalid argument! :0").show();
+        }
+        //img
+        Image img = new Image(getClass().getResourceAsStream("/img/"+location));
+
+        //img view
+        ImageView imgView = new ImageView(img);
+        imgView.setFitHeight(40);
+        imgView.setFitWidth(40);
+
+        return imgView;
+    }
+    private String getStudentID(StudentDTO studentDTO){ //get student id
+        return studentDTO.getId();
+    }
+    private String getRoomID(RoomDTO roomDTO){ //get room id
+        return roomDTO.getRoomTypeId();
     }
 
     @FXML
@@ -378,6 +435,15 @@ public class ReservationFormController implements Initializable {
 
         //set value to lbl
         lblDate.setText(formatterDateTime);
+    }
+
+    private void setPropertyValueFactory(){
+        colID.setCellValueFactory(new PropertyValueFactory<>("reservationId"));
+        colARRIVAL.setCellValueFactory(new PropertyValueFactory<>("arrivalDate"));
+        colDEPARTURE.setCellValueFactory(new PropertyValueFactory<>("departureDate"));
+        colSTUDENT_ID.setCellValueFactory(new PropertyValueFactory<>("studentId"));
+        colROOM_TYPE_ID.setCellValueFactory(new PropertyValueFactory<>("roomTypeId"));
+        colSTATUS.setCellValueFactory(new PropertyValueFactory<>("status"));
     }
 
 }

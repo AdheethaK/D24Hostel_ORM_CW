@@ -103,7 +103,18 @@ public class ReservationBOImpl implements ReservationBO {
 
     @Override
     public ArrayList<ReservationDTO> getAll() throws Exception { //🔍 ALL
-        return null;
+        ArrayList<ReservationDTO> reservationDTOS = new ArrayList<>();
+        for (Reservation res : reservationDAO.getAll()){
+            reservationDTOS.add(new ReservationDTO(
+                    res.getReservationId(),
+                    res.getArrivalDate(),
+                    res.getDepartureDate(),
+                    getStudentDTO(res.getStudentId()),
+                    getRoomDTO(res.getRoomTypeId()),
+                    res.getStatus()
+            ));
+        }
+        return reservationDTOS;
     }
 
     @Override
