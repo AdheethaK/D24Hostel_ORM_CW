@@ -5,8 +5,10 @@ import dao.DAOFactory;
 import dao.custom.ReservationDAO;
 import dto.ReservationDTO;
 import dto.RoomDTO;
+import dto.StudentDTO;
 import entity.Reservation;
 import entity.Room;
+import entity.Student;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -24,11 +26,31 @@ public class ReservationBOImpl implements ReservationBO {
     public boolean update(ReservationDTO entity) throws Exception { //🔃
         return reservationDAO.update(new Reservation(
                 entity.getReservationId(),
-                entity.getDate(),
-                entity.getStudentId(),
-                entity.getRoomTypeId(),
+                entity.getArrivalDate(),
+                entity.getDepartureDate(),
+                getStudent(entity.getStudentId()),
+                getRoom(entity.getRoomTypeId()),
                 entity.getStatus()
         ));
+    }
+    private Student getStudent(StudentDTO studentDTO){//convert StudentDTO to Student type
+        return new Student(
+                studentDTO.getId(),
+                studentDTO.getName(),
+                studentDTO.getAddress(),
+                studentDTO.getContactNo(),
+                studentDTO.getDob(),
+                studentDTO.getGender()
+        );
+    }
+    private Room getRoom(RoomDTO roomDTO){//convert RoomDTO to Room type
+        return new Room(
+                roomDTO.getRoomTypeId(),
+                roomDTO.isTypeFOOD(),
+                roomDTO.isTypeAC(),
+                roomDTO.getKeyMoney(),
+                roomDTO.getQty()
+        );
     }
 
     @Override
@@ -42,10 +64,30 @@ public class ReservationBOImpl implements ReservationBO {
 
         return new ReservationDTO(
                 reservation.getReservationId(),
-                reservation.getDate(),
-                reservation.getStudentId(),
-                reservation.getRoomTypeId(),
+                reservation.getArrivalDate(),
+                reservation.getDepartureDate(),
+                getStudentDTO(reservation.getStudentId()),
+                getRoomDTO(reservation.getRoomTypeId()),
                 reservation.getStatus()
+        );
+    }
+    private StudentDTO getStudentDTO(Student student){//convert Student to StudentDTO type
+        return new StudentDTO(
+                student.getId(),
+                student.getName(),
+                student.getAddress(),
+                student.getContactNo(),
+                student.getDob(),
+                student.getGender()
+        );
+    }
+    private RoomDTO getRoomDTO(Room room){//convert Room to RoomDTO type
+        return new RoomDTO(
+                room.getRoomTypeId(),
+                room.isTypeFOOD(),
+                room.isTypeAC(),
+                room.getKeyMoney(),
+                room.getQty()
         );
     }
 
@@ -68,9 +110,10 @@ public class ReservationBOImpl implements ReservationBO {
     public boolean add(ReservationDTO entity) throws Exception { //✔
         return reservationDAO.add(new Reservation(
                 entity.getReservationId(),
-                entity.getDate(),
-                entity.getStudentId(),
-                entity.getRoomTypeId(),
+                entity.getArrivalDate(),
+                entity.getDepartureDate(),
+                getStudent(entity.getStudentId()),
+                getRoom(entity.getRoomTypeId()),
                 entity.getStatus()
         ));
     }

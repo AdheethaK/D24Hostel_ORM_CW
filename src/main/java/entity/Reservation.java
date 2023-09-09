@@ -16,7 +16,8 @@ import java.time.LocalDate;
 public class Reservation {
     @Id
     private String reservationId;
-    private LocalDate date;
+    private LocalDate arrivalDate;
+    private LocalDate departureDate;
     @ManyToOne
     private Student studentId;
     @ManyToOne

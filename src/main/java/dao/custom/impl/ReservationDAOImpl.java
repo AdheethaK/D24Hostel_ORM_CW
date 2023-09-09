@@ -2,7 +2,6 @@ package dao.custom.impl;
 
 import dao.custom.ReservationDAO;
 import entity.Reservation;
-import entity.Room;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import util.FactoryConfiguration;

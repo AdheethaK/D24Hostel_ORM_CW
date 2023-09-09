@@ -263,14 +263,14 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TableView prefHeight="470.0" prefWidth="550.0" GridPane.columnIndex="1">
+            <TableView fx:id="tblStudent" prefHeight="470.0" prefWidth="550.0" GridPane.columnIndex="1">
               <columns>
-                <TableColumn prefWidth="43.0" text="ID" />
-                <TableColumn prefWidth="128.99996948242188" text="NAME" />
-                  <TableColumn prefWidth="88.0" text="ADDRESS" />
-                  <TableColumn prefWidth="114.0" text="CONTACT NO" />
-                  <TableColumn prefWidth="92.0" text="DOB" />
-                  <TableColumn prefWidth="83.0" text="GENDER" />
+                <TableColumn fx:id="colID" prefWidth="43.0" text="ID" />
+                <TableColumn fx:id="colNAME" prefWidth="128.99996948242188" text="NAME" />
+                  <TableColumn fx:id="colADDRESS" prefWidth="88.0" text="ADDRESS" />
+                  <TableColumn fx:id="colCONTACTNO" prefWidth="114.0" text="CONTACT NO" />
+                  <TableColumn fx:id="colDOB" prefWidth="92.0" text="DOB" />
+                  <TableColumn fx:id="colGENDER" prefWidth="83.0" text="GENDER" />
               </columns>
             </TableView>
             <JFXButton fx:id="btnRefreshTable" buttonType="RAISED" onAction="#btnRefreshTableOnAction" prefHeight="45.0" prefWidth="189.0" style="-fx-background-color: #F6F641; -fx-background-radius: 50px;" text="Refresh Table" textFill="#464545" GridPane.columnIndex="1" GridPane.rowIndex="1">

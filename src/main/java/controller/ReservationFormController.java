@@ -1,12 +1,17 @@
 package controller;
 
 import bo.BOFactory;
+import bo.custom.ReservationBO;
 import bo.custom.RoomBO;
 import bo.custom.StudentBO;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
+import dto.ReservationDTO;
+import dto.RoomDTO;
+import dto.StudentDTO;
+import entity.Student;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -59,7 +64,6 @@ public class ReservationFormController implements Initializable {
     @FXML private JFXTextField txtReservationID;
     @FXML private JFXComboBox<String> cmbRoomType;
     @FXML private JFXComboBox<String> cmbStudentID;
-    @FXML private JFXDatePicker datePickerDate;
     @FXML private JFXButton btnAdd;
     @FXML private JFXButton btnUpdate;
     @FXML private JFXButton btnDelete;
@@ -73,6 +77,7 @@ public class ReservationFormController implements Initializable {
 
     StudentBO studentBO = (StudentBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.STUDENT);
     RoomBO roomBO = (RoomBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ROOM);
+    ReservationBO reservationBO = (ReservationBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.RESERVATION);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -109,7 +114,49 @@ public class ReservationFormController implements Initializable {
 
     @FXML
     void btnSaveOnAction(ActionEvent event) { //✔️
-
+        if(save()){
+            new Alert(Alert.AlertType.CONFIRMATION,"Congratulations! Reservation successfully saved! :)").show();
+        }else{
+            new Alert(Alert.AlertType.ERROR,"oops! something happened in reservation table! :(").show();
+        }
+    }
+    private boolean save(){
+        boolean isSaved = false;
+        try {
+            isSaved = reservationBO.add(fillObject_Reservation());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return isSaved;
+    }
+    //fill obj room
+    private ReservationDTO fillObject_Reservation(){
+        return new ReservationDTO(
+                txtReservationID.getText(),
+                datePickerArrival.getValue(),
+                datePickerDeparture.getValue(),
+                getStudent(cmbStudentID.getValue()),
+                getRoom(cmbRoomType.getValue()),
+                cmbStatus.getValue()
+        );
+    }
+    private StudentDTO getStudent(String id){//get the student for the id
+        try {
+            StudentDTO studentDTO = studentBO.search(id);
+            if(studentDTO != null) return studentDTO;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    private RoomDTO getRoom(String id){//get the room for the id
+        try {
+            RoomDTO roomDTO = roomBO.search(id);
+            if(roomDTO != null) return roomDTO;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @FXML
