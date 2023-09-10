@@ -1,5 +1,6 @@
 package entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
@@ -18,9 +19,9 @@ public class Reservation {
     private String reservationId;
     private LocalDate arrivalDate;
     private LocalDate departureDate;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Student studentId;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Room roomTypeId;
     private String status;
 }
